@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.marondal.springexample.mybatis.repository.ReviewRepository">
+
+    <select id="selectReview"
+    resultType="com.marondal.springexample.mybatis.domain.Review">
+        SELECT
+            `id`
+            , `store_id`
+            , `menu`
+            , `user_name`
+            , `point`
+            , `review`
+            , `created_at`
+            , `updated_at`
+        FROM
+            `new_review`
+        WHERE
+            `id` = #{id}
+    </select>
+
+
+    <insert id="insertReview" parameterType="map">
+        INSERT INTO
+            `new_review`
+        (
+            `store_id`
+            , `menu`
+            , `user_name`
+            , `point`
+            , `review`
+        )
+        VALUE
+        (
+            #{storeId}
+            , #{menu}
+            , #{userName}
+            , #{point}
+            , #{review}
+        )
+    </insert>
+
+    <insert id="insertReviewByObject"
+    parameterType="com.marondal.springexample.mybatis.domain.Review">
+        INSERT INTO
+            `new_review`
+        (
+            `store_id`
+            , `menu`
+            , `user_name`
+            , `point`
+            , `review`
+        )
+        VALUE
+        (
+            #{storeId}
+            , #{menu}
+            , #{userName}
+            , #{point}
+            , #{review}
+        )
+    </insert>
+
+
+
+</mapper>
