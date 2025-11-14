@@ -30,4 +30,9 @@ public class UserService {
 
         return count;
     }
+
+    public int createUserByObject(User user) {
+        int count = userRepository.insertUserByObject(user);
+        return count;
+    }
 }

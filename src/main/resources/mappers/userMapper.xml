@@ -39,4 +39,25 @@
             , #{introduce}
         )
     </insert>
+
+    <insert id="insertUserByObject"
+            parameterType="com.marondal.springexample.mvc.domain.User"
+    useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            `new_user`
+        (
+            `name`
+            , `yyyymmdd`
+            , `email`
+            , `introduce`
+        )
+        VALUE
+        (
+            #{name}
+            , #{yyyymmdd}
+            , #{email}
+            , #{introduce}
+        )
+
+    </insert>
 </mapper>
