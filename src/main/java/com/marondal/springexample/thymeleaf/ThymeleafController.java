@@ -5,10 +5,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @RequestMapping("/thymeleaf")
 @Controller
@@ -58,5 +57,21 @@ public class ThymeleafController {
 
 
         return "thymeleaf/ex02";
+    }
+
+    @GetMapping("/ex03")
+    public String ex03(Model model) {
+
+        Date date = new Date();
+
+        LocalDate localDate = LocalDate.now();
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        model.addAttribute("date", date);
+        model.addAttribute("localDate", localDate);
+        model.addAttribute("localDateTime", localDateTime);
+
+        return "thymeleaf/ex03";
     }
 }
