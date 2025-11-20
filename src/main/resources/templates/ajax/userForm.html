@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 추가</title>
+</head>
+<body>
+
+    <h3>사용자 추가</h3>
+
+    <label>이름 </label><input type="text" id="nameInput"> <br>
+    <label>생년월일 </label><input type="text" id="birthdayInput"> <br>
+    <label>이메일 </label><input type="text" id="emailInput"> <br>
+    <label>자기소개 </label> <br>
+    <textarea rows="7" cols="50" id="introduceInput"></textarea> <br>
+    <button type="button" id="addBtn">추가</button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $("#addBtn").on("click", function() {
+            let name = $("#nameInput").val();
+            let birthday = $("#birthdayInput").val();
+            let email = $("#emailInput").val();
+            let introduce = $("#introduceInput").val();
+
+            if(name == "") {
+                alert("이름을 입력하세요");
+                return ;
+            }
+
+            if(birthday == "") {
+                alert("생년월일을 입력하세요");
+                return ;
+            }
+
+            if(email == "") {
+                alert("이메일을 입력하세요");
+                return ;
+            }
+
+            if(introduce == "") {
+                alert("자기소개를 입력하세요");
+                return ;
+            }
+
+            $.ajax({
+                type:"post"
+                , url:"/ajax/user/add"
+                , data:{"name":name, "birthday":birthday, "email":email, "introduce":introduce}
+                , success:function(response) {
+                    // 성공 {"result":"success"}
+                    // 실패 {"result":"fail"}
+                    if(response.result == "success") {
+                        alert("성공!!");
+                    } else {
+                        alert("추가 실패!!");
+                    }
+                }
+                , error:function() {
+                    alert("추가 에러!!");
+                }
+            });
+
+        });
+
+    </script>
+</body>
+</html>

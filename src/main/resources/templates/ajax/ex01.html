@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX</title>
+</head>
+<body>
+
+    <h2>AJAX</h2>
+    <!-- 입력된 이름과 생년월일 정보를 /ajax/person API를 통해서 이름과 나이로 전달 받고
+     페이지 이동 없이 표시한다-->
+
+    <label>이름 </label> <input type="text" id="nameInput">
+    <label>생년월일 </label> <input type="text" id="birthdayInput">
+    <button type="button" id="inputBtn">입력</button>
+
+    <h3>이름 : <span id="nameSpan">김인규</span></h3>
+    <h3>나이 : <span id="ageSpan">31</span></h3>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $("#inputBtn").on("click", function() {
+            let name = $("#nameInput").val();
+            let birthday = $("#birthdayInput").val();
+
+            if(name == "") {
+                alert("이름을 입력하세요");
+                return ;
+            }
+
+            if(birthday == "") {
+                alert("생년월일을 입력하세요");
+                return ;
+            }
+
+            $.ajax({
+                type:"get"
+                , url:"/ajax/person"
+                , data:{"name":name, "birthday":birthday}
+                , success:function(response) {
+                    // 응답이 정상적으로 전달 된 경우
+                    // {"name":"유재석", "age":28}
+                    // ajax 함수가 응답의 형태가 JSON 문자열 인 경우 (contentType : application/json)
+                    // Javascript 객체로 변환해서 전달 된다.
+                    // alert(response.name + " " + response.age);
+
+                    $("#nameSpan").text(response.name);
+                    $("#ageSpan").text(response.age);
+
+                }
+                , error:function() {
+                    // 응답이 에러인경우 (404, 400, 405, 500 ....)
+                    alert("에러!!");
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
